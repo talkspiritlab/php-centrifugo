@@ -72,7 +72,7 @@ class BatchRequest extends Request implements IteratorAggregate, ArrayAccess
     /**
      * @return ArrayIterator
      */
-    public function getIterator()
+    public function getIterator(): \Iterator
     {
         return new ArrayIterator($this->requests);
     }
@@ -80,7 +80,7 @@ class BatchRequest extends Request implements IteratorAggregate, ArrayAccess
     /**
      * @inheritdoc
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         $this->add($value);
     }
@@ -88,7 +88,7 @@ class BatchRequest extends Request implements IteratorAggregate, ArrayAccess
     /**
      * @inheritdoc
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->requests[$offset]);
     }
@@ -96,14 +96,12 @@ class BatchRequest extends Request implements IteratorAggregate, ArrayAccess
     /**
      * @inheritdoc
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->requests[$offset]);
     }
 
-    /**
-     * @inheritdoc
-     */
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return isset($this->requests[$offset]) ? $this->requests[$offset] : null;

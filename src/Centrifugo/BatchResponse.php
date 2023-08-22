@@ -76,7 +76,7 @@ class BatchResponse extends Response implements IteratorAggregate, ArrayAccess
     /***
      * @inheritdoc
      */
-    public function getIterator()
+    public function getIterator(): \Iterator
     {
         return new ArrayIterator($this->responses);
     }
@@ -84,7 +84,7 @@ class BatchResponse extends Response implements IteratorAggregate, ArrayAccess
     /**
      * @inheritdoc
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         $this->addResponse($offset, $value);
     }
@@ -92,7 +92,7 @@ class BatchResponse extends Response implements IteratorAggregate, ArrayAccess
     /**
      * @inheritdoc
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->responses[$offset]);
     }
@@ -100,14 +100,12 @@ class BatchResponse extends Response implements IteratorAggregate, ArrayAccess
     /**
      * @inheritdoc
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->responses[$offset]);
     }
 
-    /**
-     * @inheritdoc
-     */
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return isset($this->responses[$offset]) ? $this->responses[$offset] : null;

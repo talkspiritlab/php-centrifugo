@@ -42,7 +42,9 @@ class BatchRequest extends Request implements IteratorAggregate, ArrayAccess
     public function add($request)
     {
         if (is_array($request)) {
-            array_walk($request, [$this, __METHOD__]);
+           foreach($request as $req) {
+            $this->add($req);
+           }
 
             return $this;
         }
